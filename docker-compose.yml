@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:16
+    container_name: twinmind-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: twinmind
+      POSTGRES_PASSWORD: twinmind_dev_pw
+      POSTGRES_DB: twinmind
+    ports:
+      - "5432:5432"
+    volumes:
+      - twinmind_pgdata:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/1_schema.sql
+      - ./db/seed.sql:/docker-entrypoint-initdb.d/2_seed.sql
+
+volumes:
+  twinmind_pgdata:
