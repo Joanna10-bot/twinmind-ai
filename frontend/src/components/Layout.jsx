@@ -3,8 +3,8 @@ import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
 
 const linkClass = ({ isActive }) =>
-  "px-3 py-1.5 rounded-md text-sm font-medium transition-colors " +
-  (isActive ? "bg-white/15 text-white" : "text-white/70 hover:text-white");
+  "rounded-md px-4 py-1.5 text-sm font-medium transition-colors " +
+  (isActive ? "bg-azure text-white" : "text-slate-400 hover:text-white");
 
 export default function Layout({ user, warehouse, children }) {
   const navigate = useNavigate();
@@ -15,33 +15,31 @@ export default function Layout({ user, warehouse, children }) {
   }
 
   return (
-    <div className="min-h-screen">
-      <header className="bg-ink text-white">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-          <div className="flex items-center gap-8">
-            <span className="text-lg font-semibold tracking-tight">
-              TwinMind <span className="text-signal">AI</span>
-            </span>
-            <nav className="flex gap-1">
-              <NavLink to="/dashboard" className={linkClass}>Dashboard</NavLink>
-              <NavLink to="/suppliers" className={linkClass}>Suppliers</NavLink>
-            </nav>
-          </div>
-          <div className="flex items-center gap-4 text-sm">
-            {warehouse && (
-              <span className="hidden rounded-md bg-white/10 px-2.5 py-1 text-white sm:inline">{warehouse.name}</span>
-            )}
-            <span className="hidden text-white/70 md:inline">{user?.displayName || user?.email}</span>
-            <button
-              onClick={handleSignOut}
-              className="rounded-md border border-white/25 px-3 py-1.5 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-signal"
-            >
-              Sign out
-            </button>
-          </div>
+    <div className="min-h-screen bg-night text-slate-200">
+      <div className="mx-auto max-w-5xl px-6 pb-16">
+        <div className="flex items-center justify-end gap-3 pt-4 text-xs text-slate-400">
+          <span className="hidden sm:inline">{user?.displayName || user?.email}</span>
+          <button
+            onClick={handleSignOut}
+            className="rounded-md border border-edge px-3 py-1 text-slate-300 hover:bg-panel focus:outline-none focus-visible:ring-2 focus-visible:ring-azure-light"
+          >
+            Sign out
+          </button>
         </div>
-      </header>
-      <main className="mx-auto max-w-6xl px-6 py-8">{children}</main>
+
+        <header className="pt-2 text-center">
+          <h1 className="text-4xl font-light tracking-tight text-white">
+            TwinMind <span className="text-azure-light">AI</span>
+          </h1>
+          <p className="mt-1 text-sm text-slate-400">AI-Driven Warehouse Digital Twin</p>
+          <nav className="mt-5 flex items-center justify-center gap-2">
+            <NavLink to="/dashboard" className={linkClass}>Dashboard</NavLink>
+            <NavLink to="/suppliers" className={linkClass}>Suppliers</NavLink>
+          </nav>
+        </header>
+
+        <main className="mt-8">{children}</main>
+      </div>
     </div>
   );
 }

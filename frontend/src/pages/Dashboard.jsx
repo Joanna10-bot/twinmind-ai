@@ -13,28 +13,33 @@ export default function Dashboard({ user, warehouse }) {
 
   return (
     <Layout user={user} warehouse={warehouse}>
-      <h1 className="text-3xl font-semibold">Welcome{first ? `, ${first}` : ""}</h1>
-      <p className="mt-2 text-steel">
-        You are managing <span className="font-medium text-ink">{warehouse?.name}</span>. Choose a module to get started.
-      </p>
+      <section className="rounded-2xl border border-edge bg-panel p-6">
+        <div className="flex items-start justify-between">
+          <div>
+            <h2 className="text-xl font-medium text-white">Welcome{first ? `, ${first}` : ""}</h2>
+            <p className="text-sm text-slate-400">{warehouse?.name} · choose a module to get started</p>
+          </div>
+          <span className="text-sm font-semibold text-live">● active</span>
+        </div>
 
-      <ul className="mt-8 divide-y divide-line overflow-hidden rounded-lg border border-line bg-white">
-        {MODULES.map((m) => (
-          <li key={m.name} className="flex items-center justify-between gap-4 px-5 py-4">
-            <div>
-              <p className="font-medium">{m.name}</p>
-              <p className="text-sm text-steel">{m.desc}</p>
-            </div>
-            {m.ready ? (
-              <Link to={m.to} className="shrink-0 rounded-md bg-ink px-4 py-2 text-sm font-medium text-white hover:bg-steel">
-                Open
-              </Link>
-            ) : (
-              <span className="shrink-0 rounded-md bg-mist px-3 py-1.5 text-sm text-steel">In progress</span>
-            )}
-          </li>
-        ))}
-      </ul>
+        <ul className="mt-6 space-y-3">
+          {MODULES.map((m) => (
+            <li key={m.name} className="flex items-center justify-between gap-4 rounded-xl border border-edge bg-tile/60 px-5 py-4">
+              <div>
+                <p className="font-medium text-white">{m.name}</p>
+                <p className="text-sm text-slate-400">{m.desc}</p>
+              </div>
+              {m.ready ? (
+                <Link to={m.to} className="shrink-0 rounded-md bg-azure px-4 py-2 text-sm font-medium text-white hover:bg-azure-light">
+                  Open
+                </Link>
+              ) : (
+                <span className="shrink-0 rounded-md bg-night px-3 py-1.5 text-sm text-slate-500">In progress</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </section>
     </Layout>
   );
 }

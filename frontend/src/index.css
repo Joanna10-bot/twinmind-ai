@@ -9,10 +9,18 @@
   --color-line: #d5dde6;
   --color-signal: #f2a900;
   --color-ok: #0e8f7e;
+
+  --color-night: #0a0e1a;
+  --color-panel: #121a2e;
+  --color-tile: #252d42;
+  --color-edge: #1f2a44;
+  --color-azure: #2b5cd6;
+  --color-azure-light: #4a90e2;
+  --color-live: #22c55e;
 }
 
 body {
   margin: 0;
-  background: var(--color-mist);
+  background: var(--color-night);
   color: var(--color-ink);
 }

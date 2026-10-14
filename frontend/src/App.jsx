@@ -9,7 +9,7 @@ import SupplierRecommendation from "./pages/SupplierRecommendation";
 
 function ProtectedRoute({ user, warehouse, children }) {
   if (user === undefined) {
-    return <div className="p-10 text-steel">Loading…</div>;
+    return <div className="p-10 text-slate-400">Loading…</div>;
   }
   return user && warehouse ? children : <Navigate to="/login" replace />;
 }
@@ -18,9 +18,9 @@ function NotFound() {
   return (
     <div className="min-h-screen grid place-items-center">
       <div className="text-center">
-        <h1 className="text-2xl font-semibold">Page not found</h1>
-        <p className="mt-2 text-steel">Check the address, or go back to the dashboard.</p>
-        <Link to="/dashboard" className="mt-4 inline-block rounded-md bg-ink px-4 py-2 text-white">
+        <h1 className="text-2xl font-semibold text-white">Page not found</h1>
+        <p className="mt-2 text-slate-400">Check the address, or go back to the dashboard.</p>
+        <Link to="/dashboard" className="mt-4 inline-block rounded-md bg-azure px-4 py-2 text-white">
           Go to dashboard
         </Link>
       </div>
