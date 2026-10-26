@@ -6,6 +6,8 @@ import { loadStoredWarehouse, clearStoredWarehouse } from "./warehouse";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import SupplierRecommendation from "./pages/SupplierRecommendation";
+import DemandForecasting from "./pages/DemandForecasting";
+import WarehouseDetails from "./pages/WarehouseDetails";
 
 function ProtectedRoute({ user, warehouse, children }) {
   if (user === undefined) {
@@ -68,6 +70,22 @@ export default function App() {
           element={
             <ProtectedRoute user={user} warehouse={warehouse}>
               <SupplierRecommendation user={user} warehouse={warehouse} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/demand"
+          element={
+            <ProtectedRoute user={user} warehouse={warehouse}>
+              <DemandForecasting user={user} warehouse={warehouse} />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/warehouse"
+          element={
+            <ProtectedRoute user={user} warehouse={warehouse}>
+              <WarehouseDetails user={user} warehouse={warehouse} />
             </ProtectedRoute>
           }
         />

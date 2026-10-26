@@ -35,6 +35,8 @@ export default function Layout({ user, warehouse, children }) {
           <nav className="mt-5 flex items-center justify-center gap-2">
             <NavLink to="/dashboard" className={linkClass}>Dashboard</NavLink>
             <NavLink to="/suppliers" className={linkClass}>Suppliers</NavLink>
+            <NavLink to="/demand" className={linkClass}>Demand</NavLink>
+            <NavLink to="/warehouse" className={linkClass}>Warehouse</NavLink>
           </nav>
         </header>
 

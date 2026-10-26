@@ -6,7 +6,8 @@ const KEY = "twinmind.warehouse";
 // Warehouse name lives in a field called "name" (or a close variant); fall back to the document id.
 function toWarehouse(snap) {
   const d = snap.data();
-  return { id: snap.id, name: d.name || d.warehouseName || d.warehouse_name || snap.id };
+  const name = d.warehouse_details?.name || d.name || d.warehouseName || d.warehouse_name || snap.id;
+  return { id: snap.id, name };
 }
 
 // Accepts either the document id (e.g. W001) or the warehouse name.
@@ -18,7 +19,7 @@ export async function findWarehouse(input) {
     const snap = await getDoc(doc(db, "warehouses", id));
     if (snap.exists()) return toWarehouse(snap);
   }
-  for (const field of ["name", "warehouseName"]) {
+  for (const field of ["warehouse_details.name", "name", "warehouseName"]) {
     const res = await getDocs(query(collection(db, "warehouses"), where(field, "==", raw), limit(1)));
     if (!res.empty) return toWarehouse(res.docs[0]);
   }

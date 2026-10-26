@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, addDoc } from "firebase/firestore";
 import { db } from "../firebase";
 import Layout from "../components/Layout";
 
@@ -65,14 +65,10 @@ export default function SupplierRecommendation({ user, warehouse }) {
       console.warn("Could not read suppliers, using sample data:", e.code || e.message);
     }
     try {
-      // Products may sit under the warehouse (warehouses/W001/products) or at the top level.
-      const names = (snap) =>
-        snap.docs.map((d) => {
-          const x = d.data();
-          return x.name || x.productName || x.product_name || x.title || d.id;
-        });
-      let list = names(await getDocs(collection(db, "warehouses", warehouse.id, "products")));
-      if (list.length === 0) list = names(await getDocs(collection(db, "products")));
+      // Products live inside the warehouse document, in the "products" map.
+      const snap = await getDoc(doc(db, "warehouses", warehouse.id));
+      const map = snap.exists() ? snap.data().products || {} : {};
+      const list = Object.entries(map).map(([id, p]) => p?.product_details?.name || id);
       setProducts([...new Set(list)]);
     } catch (e) {
       console.warn("Could not read products:", e.code || e.message);
